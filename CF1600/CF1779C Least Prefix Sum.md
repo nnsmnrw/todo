@@ -1,5 +1,5 @@
 
-# Least Prefix Sum题目（t.cpp）
+# 最小前缀和（sum.cpp）
 时间限制 $ 1s$   |   空间限制 $ 256M$
 
 #### 题目描述：
