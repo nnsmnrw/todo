@@ -4,7 +4,7 @@
 
 #### 题目描述：
 
-给一个长度为 $n$ 的排列，求有多少个四元组 $(a,b,c,d)$ 满足 $a\ltb\ltc\ltd$ 和 $p_a\ltp_c$、$p_b\gtp_d$。
+给一个长度为 $n$ 的排列，求有多少个四元组 $(a,b,c,d)$ 满足 $a\lt b\lt c\lt d$ 和 $p_a\lt p_c$、$p_b\gt p_d$。
 $n\le 5000$
 
 Tokitsukaze has a permutation $ p $ of length $ n $ . Recall that a permutation $ p $ of length $ n $ is a sequence $ p_1, p_2, \ldots, p_n $ consisting of $ n $ distinct integers, each of which from $ 1 $ to $ n $ ( $ 1 \leq p_i \leq n $ ).

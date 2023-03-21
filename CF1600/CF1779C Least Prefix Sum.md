@@ -1,27 +1,21 @@
 
-# 最小前缀和（sum.cpp）
+## 最小前缀和（sum.cpp）—CF1779C—1600
 时间限制 $ 1s$   |   空间限制 $ 256M$
 
 #### 题目描述：
 
-定义长度为 $n$ 的数组 $arr$ 的前缀和数组为 $s$，对于一次操作，你可以选择一个数，变为这个数的相反数，给定一个数 $m$，请你求出最小的操作次数使序列满足：$\forall i\in[1,n], s_i\geq s_m$。
-
-Baltic, a famous chess player who is also a mathematician, has an array $ a_1,a_2, \ldots, a_n $ , and he can perform the following operation several (possibly $ 0 $ ) times:
-
-- Choose some index $ i $ ( $ 1 \leq i \leq n $ );
-- multiply $ a_i $ with $ -1 $ , that is, set $ a_i := -a_i $ .
-    Baltic's favorite number is $ m $ , and he wants $ a_1 + a_2 + \cdots + a_m $ to be the smallest of all non-empty prefix sums. More formally, for each $ k = 1,2,\ldots, n $ it should hold that $ $$$a_1 + a_2 + \cdots + a_k \geq a_1 + a_2 + \cdots + a_m. $ $ \lt/p\gt\ltp\gtPlease note that multiple smallest prefix sums may exist and that it is only required that $ a\_1 + a\_2 + \\cdots + a\_m $ is one of them.\lt/p\gt\ltp\gtHelp Baltic find the minimum number of operations required to make $ a\_1 + a\_2 + \\cdots + a\_m$$$ the least of all prefix sums. It can be shown that a valid sequence of operations always exists.
+定义长度为 $n$ 的数组 $a_i$ 的前缀和数组为 $s_i$，对于一次操作，你可以选择一个数，变为这个数的相反数，给定一个数 $m$，请你求出最小的操作次数使序列满足：$\forall i\in[1,n], s_i\geq s_m$。
 
 #### 输入格式：
 
-Each test contains multiple test cases. The first line contains the number of test cases $ t $ ( $ 1 \leq t \leq 10\,000 $ ). The description of the test cases follows.
-The first line of each test case contains two integers $ n $ and $ m $ ( $ 1 \leq m \leq n \leq 2\cdot 10^5 $ ) — the size of Baltic's array and his favorite number.
-The second line contains $ n $ integers $ a_1,a_2, \ldots, a_n $ ( $ -10^9 \leq a_i \leq 10^9 $ ) — the array.
-It is guaranteed that the sum of $ n $ over all test cases does not exceed $ 2\cdot 10^5 $ .
+第一行输入整数 $ t $ ( $ 1 \leq t \leq 10\,000 $ )，表示样例组数；
+每组样例第一行输入两个整数 $ n $ 和 $ m $ ( $ 1 \leq m \leq n \leq 2\cdot 10^5 $ ) ，表示数组大小和最小前缀和的下标；
+第二行输入 $ n $ 个整数 $ a_1,a_2, \ldots, a_n $ ( $ -10^9 \leq a_i \leq 10^9 $ ) 表示原数组；
+保证一组样例中所有 $ n $ 的和不超过 $ 2\cdot 10^5 $ .
 
 #### 输出格式：
 
-For each test case, print a single integer — the minimum number of required operations.
+对于每组样例，输出最小操作次数。
 
 #### 样例输入输出：
 
@@ -29,26 +23,53 @@ For each test case, print a single integer — the minimum number of required op
 | ------------------------------------------------------------ | ------------------------------- |
 | 6<br/>4 3<br/>-1 -2 -3 -4<br/>4 3<br/>1 2 3 4<br/>1 1<br/>1<br/>5 5<br/>-2 3 -5 1 -20<br/>5 2<br/>-2 3 -5 -5 -20<br/>10 4<br/>345875723 -48 384678321 -375635768 -35867853 -35863586 -358683842 -81725678 38576 -357865873 | 1<br/>1<br/>0<br/>0<br/>3<br/>4 |
 
-#### 样例解释：
-
-In the first example, we perform the operation $ a_4 := -a_4 $ . The array becomes $ [-1,-2,-3,4] $ and the prefix sums, $ [a_1, \ a_1+a_2, \ a_1+a_2+a_3, \ a_1+a_2+a_3+a_4] $ , are equal to $ [-1,-3,-6,-2] $ . Thus $ a_1 + a_2 + a_3=-6 $ is the smallest of all prefix sums.
-In the second example, we perform the operation $ a_3 := -a_3 $ . The array becomes $ [1,2,-3,4] $ with prefix sums equal to $ [1,3,0,4] $ .
-In the third and fourth examples, $ a_1 + a_2 + \cdots + a_m $ is already the smallest of the prefix sums — no operation needs to be performed.
-In the fifth example, a valid sequence of operations is:
-
-- $ a_3 := -a_3 $ ,
-- $ a_2 := -a_2 $ ,
-- $ a_5 := -a_5 $ .
-    The array becomes $ [-2,-3,5,-5,20] $ and its prefix sums are $ [-2,-5,0,-5,15] $ . Note that $ a_1+a_2=-5 $ and $ a_1+a_2+a_3+a_4=-5 $ are both the smallest of the prefix sums (and this is a valid solution).
-
 <div STYLE="page-break-after: always;"/>
 
-#### 题解：
+#### 题解：前缀和、优先队列
 
-
+​	$s_i\geq s_m$ 那么 $s_i-s_m>0(i>m)$ 或  $s_m-s_i<0(i<m)$ ，以 $i>m$ 为例， $s_i-s_m>0$ 说明 $m+1$ 到 $i$ 的区间和应该大于  $0$，我们从 $m+1$ 开始累加，如果某个位置的累加和小于等于 $0$ 那么我们应该将一个负数（一定存在）修改为正数，所有数的修改代价都相同，我们必然会选择这段区间中绝对值最大的负数，用优先队列维护即可。 $i<m$ 的思路同上。
 
 #### 参考代码：
 
 ```c++
-
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+int a[200005];
+int t,n,m,i,k,s;
+signed main()
+{
+	scanf("%lld",&t);
+	while(t--)
+	{
+		scanf("%lld%lld",&n,&m);k=s=0;
+		priority_queue<int> q1;//大根优先队列
+		priority_queue<int,vector<int>,greater<int> > q2;//小根优先队列
+		for(i=1;i<=n;i++) scanf("%lld",&a[i]);
+		if(n==1) puts("0");continue;
+		for(i=m;i>1;i--)//不能为0
+		{
+			k+=a[i];
+			q1.push(a[i]);
+			if(k>0)//需要修改
+			{
+				k-=q1.top()*2ll;//最大值 x 取反后对 k 的贡献减小 2*x
+				q1.pop();s++;
+			}
+		}
+		k=0;
+		for(i=m+1;i<=n;i++)
+		{
+			k+=a[i];
+			q2.push(a[i]);
+			if(k<0)//需要修改
+			{
+				k-=q2.top()*2ll;
+				q2.pop();s++;
+			}
+		}
+		printf("%lld\n",s);
+	}
+	return 0;
+}
 ```
