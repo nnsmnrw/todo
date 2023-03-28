@@ -27,10 +27,34 @@
 
 #### 题解：阶乘、整除
 
-
+$(n+1)*n!=(n+1)!$  ，统计每个阶乘出现的次数，从小到大处理进位即可。
 
 #### 参考代码：
 
 ```c++
-
+#include <bits/stdc++.h>
+using namespace std;
+int cnt[500005];
+int main()
+{
+	ios::sync_with_stdio(false);
+	int n, x;
+	cin >> n >> x;
+	for (int i = 1; i <= n; i++)
+	{
+		int a;
+		cin >> a;
+		cnt[a]++; //统计
+	}
+	for (int i = 1; i < x; i++) cnt[i + 1] += (cnt[i] / (i + 1)), cnt[i] %= (i + 1); //"进位"
+	for (int i = 1; i < x; i++)
+		if (cnt[i])
+		{
+			cout << "No";
+			return 0;
+		}
+	if (cnt[x]) cout << "Yes";
+	else cout << "No";
+	return 0;
+}
 ```
